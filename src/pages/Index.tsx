@@ -10,12 +10,16 @@ import {
   ShieldCheck, 
   ChevronRight,
   ExternalLink,
-  Tv
+  Tv,
+  Info
 } from 'lucide-react';
 import AdUnit from '@/components/AdUnit';
 import FeatureCard from '@/components/FeatureCard';
+import TrendingAnime from '@/components/TrendingAnime';
+import SEO from '@/components/SEO';
 import { Button } from '@/components/ui/button';
 import { MadeWithDyad } from '@/components/made-with-dyad';
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const REDIRECT_URL = "https://animedekho.app";
 const AUTO_REDIRECT_SECONDS = 15;
@@ -23,6 +27,7 @@ const AUTO_REDIRECT_SECONDS = 15;
 const Index = () => {
   const [timeLeft, setTimeLeft] = useState(AUTO_REDIRECT_SECONDS);
   const [isRedirecting, setIsRedirecting] = useState(false);
+  const [showAdGuide, setShowAdGuide] = useState(false);
 
   useEffect(() => {
     if (timeLeft <= 0) {
@@ -44,10 +49,13 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-[#0a0a0c] text-slate-50 selection:bg-[#FF6B6B]/30">
-      {/* SEO Meta Tags (Handled by React Helmet or similar in production, here we just structure the page) */}
+      <SEO 
+        title="AnimeDekho - Watch Free Anime Online | Stream HD Anime" 
+        description="Stream thousands of anime episodes free on AnimeDekho. Watch latest anime with HD quality, subtitles, and dubs."
+      />
       
       {/* Header */}
-      <header className="container mx-auto px-4 py-6 flex items-center justify-between border-b border-white/5">
+      <header className="container mx-auto px-4 py-6 flex items-center justify-between border-b border-white/5 sticky top-0 bg-[#0a0a0c]/80 backdrop-blur-xl z-40">
         <div className="flex items-center gap-2">
           <div className="w-10 h-10 bg-gradient-to-br from-[#FF6B6B] to-[#7B68EE] rounded-xl flex items-center justify-center shadow-lg shadow-[#FF6B6B]/20">
             <Tv className="text-white" size={22} />
@@ -80,10 +88,8 @@ const Index = () => {
 
         {/* Hero Section */}
         <section className="py-12 md:py-20 text-center relative overflow-hidden">
-          {/* Background Glows */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#FF6B6B]/10 blur-[120px] rounded-full -z-10" />
-          <div className="absolute top-1/4 right-1/4 w-[300px] h-[300px] bg-[#4ECDC4]/10 blur-[100px] rounded-full -z-10" />
-
+          
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -108,12 +114,47 @@ const Index = () => {
                 {isRedirecting ? "Redirecting..." : "Enter AnimeDekho"} 
                 <ExternalLink size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <p className="text-sm text-muted-foreground">
-                Join 100K+ anime fans worldwide
-              </p>
+              <button 
+                onClick={() => setShowAdGuide(!showAdGuide)}
+                className="text-xs text-muted-foreground hover:text-white transition-colors flex items-center gap-1"
+              >
+                <Info size={12} /> AdSense Setup Guide
+              </button>
             </div>
           </motion.div>
         </section>
+
+        {/* AdSense Guide (Hidden by default) */}
+        <AnimatePresence>
+          {showAdGuide && (
+            <motion.div 
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="max-w-2xl mx-auto mb-12 overflow-hidden"
+            >
+              <Alert className="bg-blue-500/10 border-blue-500/20 text-blue-200">
+                <Info className="h-4 w-4" />
+                <AlertTitle>How to add your AdSense code</AlertTitle>
+                <AlertDescription className="text-xs space-y-2 mt-2">
+                  <p>1. Open <code className="bg-black/30 px-1 rounded">src/components/AdUnit.tsx</code></p>
+                  <p>2. Replace the placeholder div with your <code className="bg-black/30 px-1 rounded"><ins></code> tag from Google.</p>
+                  <p>3. Add the AdSense script to your <code className="bg-black/30 px-1 rounded">index.html</code> head section.</p>
+                </AlertDescription>
+              </Alert>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Trending Section */}
+        <div className="max-w-6xl mx-auto">
+          <TrendingAnime onAction={handleRedirect} />
+        </div>
+
+        {/* In-Content Ad */}
+        <div className="max-w-2xl mx-auto">
+          <AdUnit slot="in-content" format="rectangle" label="Recommended for you" />
+        </div>
 
         {/* Features Grid */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto py-12">
@@ -139,11 +180,6 @@ const Index = () => {
             delay={0.3}
           />
         </section>
-
-        {/* In-Content Ad */}
-        <div className="max-w-2xl mx-auto">
-          <AdUnit slot="in-content" format="rectangle" label="Recommended for you" />
-        </div>
 
         {/* Secondary Features */}
         <section className="py-12 max-w-4xl mx-auto">
