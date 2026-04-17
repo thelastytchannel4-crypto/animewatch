@@ -16,7 +16,6 @@ import { Button } from '@/components/ui/button';
 import SEO from '@/components/SEO';
 import AnimeCarousel from '@/components/AnimeCarousel';
 import AnimeGrid from '@/components/AnimeGrid';
-import AdPlaceholder from '@/components/AdPlaceholder';
 import { useAnimeData } from '@/hooks/useAnimeData';
 
 const REDIRECT_URL = "https://animedekho.app";
@@ -99,9 +98,6 @@ const Index = () => {
           )}
         </section>
 
-        {/* Top Ad Banner */}
-        <AdPlaceholder type="banner" className="mb-16" />
-
         {/* Popular Anime Grid */}
         {isLoading ? (
           <div className="grid grid-cols-2 md:grid-cols-6 gap-6">
@@ -117,22 +113,38 @@ const Index = () => {
           />
         )}
 
-        {/* Middle Ad Section */}
-        <div className="flex flex-col md:flex-row gap-8 justify-center items-center my-16">
-          <AdPlaceholder type="rectangle" />
+        {/* Features Section */}
+        <div className="flex flex-col md:flex-row gap-12 justify-center items-center my-24 py-12 border-y border-white/5">
           <div className="max-w-md text-center md:text-left">
-            <h3 className="text-2xl font-black mb-4">Why choose AnimeDekho?</h3>
-            <ul className="space-y-4">
-              <li className="flex items-center gap-3 text-slate-400 font-medium">
-                <Zap size={20} className="text-[#FF6B6B]" /> Ultra-fast streaming servers
+            <h3 className="text-3xl font-black mb-6">Why choose AnimeDekho?</h3>
+            <ul className="space-y-6">
+              <li className="flex items-center gap-4 text-slate-300 font-medium text-lg">
+                <div className="w-10 h-10 rounded-full bg-[#FF6B6B]/20 flex items-center justify-center shrink-0">
+                  <Zap size={20} className="text-[#FF6B6B]" />
+                </div>
+                Ultra-fast streaming servers
               </li>
-              <li className="flex items-center gap-3 text-slate-400 font-medium">
-                <ShieldCheck size={20} className="text-[#4ECDC4]" /> No intrusive pop-up ads
+              <li className="flex items-center gap-4 text-slate-300 font-medium text-lg">
+                <div className="w-10 h-10 rounded-full bg-[#4ECDC4]/20 flex items-center justify-center shrink-0">
+                  <ShieldCheck size={20} className="text-[#4ECDC4]" />
+                </div>
+                No intrusive pop-up ads
               </li>
-              <li className="flex items-center gap-3 text-slate-400 font-medium">
-                <Smartphone size={20} className="text-[#7B68EE]" /> Perfect for mobile viewing
+              <li className="flex items-center gap-4 text-slate-300 font-medium text-lg">
+                <div className="w-10 h-10 rounded-full bg-[#7B68EE]/20 flex items-center justify-center shrink-0">
+                  <Smartphone size={20} className="text-[#7B68EE]" />
+                </div>
+                Perfect for mobile viewing
               </li>
             </ul>
+          </div>
+          <div className="relative group">
+            <div className="absolute -inset-4 bg-gradient-to-r from-[#FF6B6B] to-[#7B68EE] rounded-[2rem] blur-2xl opacity-20 group-hover:opacity-40 transition-opacity" />
+            <img 
+              src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?q=80&w=1000&auto=format&fit=crop" 
+              className="relative w-full max-w-md rounded-[2rem] shadow-2xl border border-white/10"
+              alt="Anime Experience"
+            />
           </div>
         </div>
 
@@ -179,9 +191,6 @@ const Index = () => {
             </Button>
           </motion.div>
         </section>
-
-        {/* Bottom Ad Banner */}
-        <AdPlaceholder type="leaderboard" className="mt-12" />
       </main>
 
       {/* Footer */}
