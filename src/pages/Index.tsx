@@ -124,7 +124,7 @@ const Index = () => {
           </motion.div>
         </section>
 
-        {/* AdSense Guide (Hidden by default) */}
+        {/* AdSense Guide */}
         <AnimatePresence>
           {showAdGuide && (
             <motion.div 
@@ -138,7 +138,7 @@ const Index = () => {
                 <AlertTitle>How to add your AdSense code</AlertTitle>
                 <AlertDescription className="text-xs space-y-2 mt-2">
                   <p>1. Open <code className="bg-black/30 px-1 rounded">src/components/AdUnit.tsx</code></p>
-                  <p>2. Replace the placeholder div with your <code className="bg-black/30 px-1 rounded"><ins></code> tag from Google.</p>
+                  <p>2. Replace the placeholder div with your <code className="bg-black/30 px-1 rounded">{"<ins>"}</code> tag from Google.</p>
                   <p>3. Add the AdSense script to your <code className="bg-black/30 px-1 rounded">index.html</code> head section.</p>
                 </AlertDescription>
               </Alert>
