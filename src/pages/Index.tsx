@@ -87,38 +87,75 @@ const Index = () => {
         </div>
 
         {/* Hero Section */}
-        <section className="py-12 md:py-20 text-center relative overflow-hidden">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#FF6B6B]/10 blur-[120px] rounded-full -z-10" />
+        <section className="py-12 md:py-24 text-center relative overflow-hidden rounded-[3rem] mt-4">
+          {/* Hero Background Image */}
+          <div className="absolute inset-0 -z-10">
+            <img 
+              src="https://images.unsplash.com/photo-1541562232579-512a21360020?q=80&w=2000&auto=format&fit=crop" 
+              className="w-full h-full object-cover opacity-20 grayscale"
+              alt="Background"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0c] via-transparent to-[#0a0a0c]" />
+          </div>
+
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#FF6B6B]/10 blur-[150px] rounded-full -z-10" />
           
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
+            className="relative z-10 px-4"
           >
-            <h1 className="text-4xl md:text-7xl font-black mb-6 tracking-tight leading-[1.1]">
-              Watch Thousands of <br />
+            <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full mb-8 backdrop-blur-md">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4ECDC4] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#4ECDC4]"></span>
+              </span>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-slate-300">Live Streaming Now</span>
+            </div>
+
+            <h1 className="text-5xl md:text-8xl font-black mb-8 tracking-tight leading-[1]">
+              Watch Your Favorite <br />
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FF6B6B] via-[#7B68EE] to-[#4ECDC4]">
-                Anime Episodes Free
+                Anime Free
               </span>
             </h1>
-            <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-              Your Ultimate Anime Streaming Destination. Stream your favorite anime in HD with subtitles and dubs on any device.
+            <p className="text-lg md:text-2xl text-slate-400 max-w-3xl mx-auto mb-12 leading-relaxed font-medium">
+              The ultimate destination for high-quality anime streaming. <br className="hidden md:block" />
+              No ads during playback, just pure entertainment.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <Button 
                 size="lg" 
-                className="bg-[#FF6B6B] hover:bg-[#ff5252] text-white px-10 py-7 text-lg font-bold rounded-2xl shadow-xl shadow-[#FF6B6B]/20 group transition-all hover:scale-105"
+                className="bg-[#FF6B6B] hover:bg-[#ff5252] text-white px-12 py-8 text-xl font-black rounded-2xl shadow-2xl shadow-[#FF6B6B]/30 group transition-all hover:scale-105 active:scale-95"
                 onClick={handleRedirect}
               >
-                {isRedirecting ? "Redirecting..." : "Enter AnimeDekho"} 
-                <ExternalLink size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                {isRedirecting ? "Redirecting..." : "START WATCHING NOW"} 
+                <Play size={24} className="ml-3 group-hover:scale-110 transition-transform" fill="white" />
               </Button>
+              
+              <div className="flex flex-col items-center sm:items-start">
+                <div className="flex -space-x-3 mb-2">
+                  {[1,2,3,4].map(i => (
+                    <div key={i} className="w-10 h-10 rounded-full border-2 border-[#0a0a0c] bg-slate-800 overflow-hidden">
+                      <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i}`} alt="User" />
+                    </div>
+                  ))}
+                  <div className="w-10 h-10 rounded-full border-2 border-[#0a0a0c] bg-[#7B68EE] flex items-center justify-center text-[10px] font-bold">
+                    +10k
+                  </div>
+                </div>
+                <p className="text-xs text-slate-500 font-medium">Join 100,000+ active viewers</p>
+              </div>
+            </div>
+
+            <div className="mt-12">
               <button 
                 onClick={() => setShowAdGuide(!showAdGuide)}
-                className="text-xs text-muted-foreground hover:text-white transition-colors flex items-center gap-1"
+                className="text-[10px] uppercase tracking-widest text-muted-foreground hover:text-white transition-colors flex items-center gap-2 mx-auto"
               >
-                <Info size={12} /> AdSense Setup Guide
+                <Info size={14} /> AdSense Setup Guide
               </button>
             </div>
           </motion.div>
@@ -133,10 +170,10 @@ const Index = () => {
               exit={{ opacity: 0, height: 0 }}
               className="max-w-2xl mx-auto mb-12 overflow-hidden"
             >
-              <Alert className="bg-blue-500/10 border-blue-500/20 text-blue-200">
+              <Alert className="bg-blue-500/10 border-blue-500/20 text-blue-200 rounded-2xl">
                 <Info className="h-4 w-4" />
-                <AlertTitle>How to add your AdSense code</AlertTitle>
-                <AlertDescription className="text-xs space-y-2 mt-2">
+                <AlertTitle className="font-bold">How to add your AdSense code</AlertTitle>
+                <AlertDescription className="text-xs space-y-2 mt-2 opacity-80">
                   <p>1. Open <code className="bg-black/30 px-1 rounded">src/components/AdUnit.tsx</code></p>
                   <p>2. Replace the placeholder div with your <code className="bg-black/30 px-1 rounded">{"<ins>"}</code> tag from Google.</p>
                   <p>3. Add the AdSense script to your <code className="bg-black/30 px-1 rounded">index.html</code> head section.</p>
@@ -147,12 +184,12 @@ const Index = () => {
         </AnimatePresence>
 
         {/* Trending Section */}
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <TrendingAnime onAction={handleRedirect} />
         </div>
 
         {/* In-Content Ad */}
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-3xl mx-auto">
           <AdUnit slot="in-content" format="rectangle" label="Recommended for you" />
         </div>
 
@@ -182,29 +219,37 @@ const Index = () => {
         </section>
 
         {/* Secondary Features */}
-        <section className="py-12 max-w-4xl mx-auto">
-          <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8">
-            <div className="flex-1">
-              <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to start your journey?</h2>
-              <p className="text-slate-400 mb-6">
-                Access our complete collection of action, romance, fantasy, and slice-of-life anime instantly. No registration required.
+        <section className="py-12 max-w-5xl mx-auto">
+          <div className="bg-gradient-to-br from-white/10 to-white/5 border border-white/10 rounded-[2.5rem] p-8 md:p-16 flex flex-col md:flex-row items-center gap-12 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#4ECDC4]/5 blur-[80px] rounded-full" />
+            
+            <div className="flex-1 relative z-10">
+              <h2 className="text-3xl md:text-5xl font-black mb-6 leading-tight">Ready to start your <br /> anime journey?</h2>
+              <p className="text-slate-400 text-lg mb-8 leading-relaxed">
+                Access our complete collection of action, romance, fantasy, and slice-of-life anime instantly. No registration required, just click and watch.
               </p>
-              <div className="flex flex-wrap gap-4">
-                <div className="flex items-center gap-2 text-sm text-slate-300">
-                  <Smartphone size={16} className="text-[#4ECDC4]" /> Mobile Optimized
+              <div className="flex flex-wrap gap-6">
+                <div className="flex items-center gap-3 text-sm font-bold text-slate-300">
+                  <div className="w-8 h-8 rounded-lg bg-[#4ECDC4]/20 flex items-center justify-center">
+                    <Smartphone size={18} className="text-[#4ECDC4]" />
+                  </div>
+                  Mobile Optimized
                 </div>
-                <div className="flex items-center gap-2 text-sm text-slate-300">
-                  <ShieldCheck size={16} className="text-[#FF6B6B]" /> Safe & Secure
+                <div className="flex items-center gap-3 text-sm font-bold text-slate-300">
+                  <div className="w-8 h-8 rounded-lg bg-[#FF6B6B]/20 flex items-center justify-center">
+                    <ShieldCheck size={18} className="text-[#FF6B6B]" />
+                  </div>
+                  Safe & Secure
                 </div>
               </div>
             </div>
             <Button 
               variant="secondary" 
               size="lg" 
-              className="rounded-xl px-8 py-6 font-bold"
+              className="rounded-2xl px-12 py-8 text-xl font-black bg-white text-black hover:bg-slate-200 transition-all shadow-xl"
               onClick={handleRedirect}
             >
-              Start Watching Now
+              ENTER NOW
             </Button>
           </div>
         </section>
@@ -216,23 +261,26 @@ const Index = () => {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-white/5 py-12 bg-black/40">
+      <footer className="border-t border-white/5 py-20 bg-black/60 backdrop-blur-xl">
         <div className="container mx-auto px-4 text-center">
-          <div className="flex items-center justify-center gap-2 mb-6 opacity-50 grayscale hover:grayscale-0 transition-all">
-            <Tv size={20} />
-            <span className="font-bold tracking-tighter">AnimeDekho</span>
+          <div className="flex items-center justify-center gap-3 mb-8">
+            <div className="w-8 h-8 bg-gradient-to-br from-[#FF6B6B] to-[#7B68EE] rounded-lg flex items-center justify-center">
+              <Tv className="text-white" size={18} />
+            </div>
+            <span className="text-xl font-black tracking-tighter">AnimeDekho</span>
           </div>
-          <p className="text-sm text-muted-foreground max-w-md mx-auto mb-8">
-            AnimeDekho does not store any files on our server. We only link to media which is hosted on 3rd party services.
+          <p className="text-sm text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed">
+            AnimeDekho is a community-driven platform. We do not store any files on our server. We only link to media which is hosted on 3rd party services.
           </p>
-          <div className="flex justify-center gap-6 text-xs text-muted-foreground mb-8">
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">DMCA</a>
+          <div className="flex flex-wrap justify-center gap-8 text-xs font-bold uppercase tracking-widest text-muted-foreground mb-12">
+            <a href="#" className="hover:text-[#FF6B6B] transition-colors">Terms</a>
+            <a href="#" className="hover:text-[#4ECDC4] transition-colors">Privacy</a>
+            <a href="#" className="hover:text-[#7B68EE] transition-colors">DMCA</a>
             <a href="#" className="hover:text-white transition-colors">Contact</a>
           </div>
-          <p className="text-[10px] text-muted-foreground/30 uppercase tracking-widest">
-            &copy; {new Date().getFullYear()} AnimeDekho. All rights reserved.
+          <div className="h-px w-24 bg-white/10 mx-auto mb-8" />
+          <p className="text-[10px] text-muted-foreground/30 uppercase tracking-[0.3em] mb-4">
+            &copy; {new Date().getFullYear()} AnimeDekho Global
           </p>
           <MadeWithDyad />
         </div>
@@ -245,19 +293,24 @@ const Index = () => {
             initial={{ y: 100 }}
             animate={{ y: 0 }}
             exit={{ y: 100 }}
-            className="fixed bottom-0 left-0 right-0 p-4 bg-black/80 backdrop-blur-md border-t border-white/10 md:hidden z-50"
+            className="fixed bottom-0 left-0 right-0 p-4 bg-black/90 backdrop-blur-xl border-t border-white/10 md:hidden z-50"
           >
             <div className="flex items-center justify-between gap-4">
-              <div className="text-xs">
-                <p className="text-slate-400">Redirecting in</p>
-                <p className="font-bold text-[#4ECDC4]">{timeLeft} seconds...</p>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-[#FF6B6B] rounded-xl flex items-center justify-center">
+                  <Play size={20} fill="white" />
+                </div>
+                <div className="text-xs">
+                  <p className="text-slate-400 font-bold uppercase tracking-tighter">Redirecting in</p>
+                  <p className="font-black text-[#4ECDC4] text-lg leading-none">{timeLeft}s</p>
+                </div>
               </div>
               <Button 
                 size="sm" 
-                className="bg-[#FF6B6B] text-white font-bold rounded-lg"
+                className="bg-[#FF6B6B] hover:bg-[#ff5252] text-white font-black rounded-xl px-6"
                 onClick={handleRedirect}
               >
-                Continue Now
+                CONTINUE
               </Button>
             </div>
           </motion.div>
