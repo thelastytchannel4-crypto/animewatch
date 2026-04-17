@@ -9,7 +9,8 @@ import {
   Smartphone, 
   ShieldCheck, 
   ChevronRight,
-  Tv
+  Tv,
+  Clock
 } from 'lucide-react';
 import FeatureCard from '@/components/FeatureCard';
 import TrendingAnime from '@/components/TrendingAnime';
@@ -48,6 +49,22 @@ const Index = () => {
         description="Stream thousands of anime episodes free on AnimeDekho. Watch latest anime with HD quality, subtitles, and dubs."
       />
       
+      {/* Redirect Notice Banner */}
+      <div className="bg-gradient-to-r from-[#FF6B6B] to-[#7B68EE] text-white py-3 px-4 text-center relative z-50">
+        <div className="container mx-auto flex items-center justify-center gap-3">
+          <Clock size={18} className="animate-pulse" />
+          <p className="text-sm md:text-base font-black tracking-tight">
+            You will be automatically redirected to <span className="underline decoration-2 underline-offset-4">AnimeDekho.app</span> in <span className="bg-white text-[#FF6B6B] px-2 py-0.5 rounded-md font-mono">{timeLeft}s</span>
+          </p>
+          <button 
+            onClick={handleRedirect}
+            className="hidden md:flex items-center gap-1 text-xs font-black uppercase tracking-widest bg-black/20 hover:bg-black/40 px-3 py-1 rounded-full transition-colors ml-4"
+          >
+            Skip Now <ChevronRight size={14} />
+          </button>
+        </div>
+      </div>
+
       {/* Header */}
       <header className="container mx-auto px-4 py-6 flex items-center justify-between border-b border-white/5 sticky top-0 bg-[#0a0a0c]/80 backdrop-blur-xl z-40">
         <div className="flex items-center gap-2">
@@ -60,16 +77,13 @@ const Index = () => {
         </div>
         
         <div className="hidden md:flex items-center gap-4">
-          <div className="text-xs text-muted-foreground bg-white/5 px-3 py-1.5 rounded-full border border-white/10">
-            Redirecting in <span className="text-[#4ECDC4] font-mono font-bold">{timeLeft}s</span>
-          </div>
           <Button 
             variant="outline" 
             size="sm" 
             className="rounded-full border-white/10 hover:bg-white/5"
             onClick={handleRedirect}
           >
-            Skip <ChevronRight size={14} className="ml-1" />
+            Go to Main Site <ExternalLink size={14} className="ml-2" />
           </Button>
         </div>
       </header>
