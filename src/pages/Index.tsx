@@ -18,7 +18,6 @@ import FeatureCard from '@/components/FeatureCard';
 import TrendingAnime from '@/components/TrendingAnime';
 import SEO from '@/components/SEO';
 import { Button } from '@/components/ui/button';
-import { MadeWithDyad } from '@/components/made-with-dyad';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const REDIRECT_URL = "https://animedekho.app";
@@ -282,7 +281,6 @@ const Index = () => {
           <p className="text-[10px] text-muted-foreground/30 uppercase tracking-[0.3em] mb-4">
             &copy; {new Date().getFullYear()} AnimeDekho Global
           </p>
-          <MadeWithDyad />
         </div>
       </footer>
 
