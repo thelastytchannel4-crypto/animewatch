@@ -9,16 +9,12 @@ import {
   Smartphone, 
   ShieldCheck, 
   ChevronRight,
-  ExternalLink,
-  Tv,
-  Info
+  Tv
 } from 'lucide-react';
-import AdUnit from '@/components/AdUnit';
 import FeatureCard from '@/components/FeatureCard';
 import TrendingAnime from '@/components/TrendingAnime';
 import SEO from '@/components/SEO';
 import { Button } from '@/components/ui/button';
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const REDIRECT_URL = "https://animedekho.app";
 const AUTO_REDIRECT_SECONDS = 15;
@@ -26,7 +22,6 @@ const AUTO_REDIRECT_SECONDS = 15;
 const Index = () => {
   const [timeLeft, setTimeLeft] = useState(AUTO_REDIRECT_SECONDS);
   const [isRedirecting, setIsRedirecting] = useState(false);
-  const [showAdGuide, setShowAdGuide] = useState(false);
 
   useEffect(() => {
     if (timeLeft <= 0) {
@@ -80,13 +75,8 @@ const Index = () => {
       </header>
 
       <main className="container mx-auto px-4 pb-20">
-        {/* Top Banner Ad */}
-        <div className="max-w-4xl mx-auto">
-          <AdUnit slot="top-banner" format="horizontal" className="mt-8" />
-        </div>
-
         {/* Hero Section */}
-        <section className="py-12 md:py-24 text-center relative overflow-hidden rounded-[3rem] mt-4">
+        <section className="py-12 md:py-24 text-center relative overflow-hidden rounded-[3rem] mt-8">
           {/* Hero Background Image */}
           <div className="absolute inset-0 -z-10">
             <img 
@@ -148,48 +138,12 @@ const Index = () => {
                 <p className="text-xs text-slate-500 font-medium">Join 100,000+ active viewers</p>
               </div>
             </div>
-
-            <div className="mt-12">
-              <button 
-                onClick={() => setShowAdGuide(!showAdGuide)}
-                className="text-[10px] uppercase tracking-widest text-muted-foreground hover:text-white transition-colors flex items-center gap-2 mx-auto"
-              >
-                <Info size={14} /> AdSense Setup Guide
-              </button>
-            </div>
           </motion.div>
         </section>
-
-        {/* AdSense Guide */}
-        <AnimatePresence>
-          {showAdGuide && (
-            <motion.div 
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="max-w-2xl mx-auto mb-12 overflow-hidden"
-            >
-              <Alert className="bg-blue-500/10 border-blue-500/20 text-blue-200 rounded-2xl">
-                <Info className="h-4 w-4" />
-                <AlertTitle className="font-bold">How to add your AdSense code</AlertTitle>
-                <AlertDescription className="text-xs space-y-2 mt-2 opacity-80">
-                  <p>1. Open <code className="bg-black/30 px-1 rounded">src/components/AdUnit.tsx</code></p>
-                  <p>2. Replace the placeholder div with your <code className="bg-black/30 px-1 rounded">{"<ins>"}</code> tag from Google.</p>
-                  <p>3. Add the AdSense script to your <code className="bg-black/30 px-1 rounded">index.html</code> head section.</p>
-                </AlertDescription>
-              </Alert>
-            </motion.div>
-          )}
-        </AnimatePresence>
 
         {/* Trending Section */}
         <div className="max-w-7xl mx-auto">
           <TrendingAnime onAction={handleRedirect} />
-        </div>
-
-        {/* In-Content Ad */}
-        <div className="max-w-3xl mx-auto">
-          <AdUnit slot="in-content" format="rectangle" label="Recommended for you" />
         </div>
 
         {/* Features Grid */}
@@ -252,11 +206,6 @@ const Index = () => {
             </Button>
           </div>
         </section>
-
-        {/* Bottom Ad */}
-        <div className="max-w-4xl mx-auto">
-          <AdUnit slot="bottom-banner" format="horizontal" />
-        </div>
       </main>
 
       {/* Footer */}
