@@ -27,7 +27,7 @@ const AnimeCarousel = ({ animeList, onAction }: AnimeCarouselProps) => {
   const current = featured[currentIndex];
 
   return (
-    <div className="relative h-[500px] md:h-[700px] w-full overflow-hidden rounded-[2rem] md:rounded-[3rem] group">
+    <div className="relative h-[500px] md:h-[700px] w-full overflow-hidden rounded-[2rem] md:rounded-[3rem] group cursor-pointer">
       <AnimatePresence mode="wait">
         <motion.div
           key={current.mal_id}
@@ -36,6 +36,7 @@ const AnimeCarousel = ({ animeList, onAction }: AnimeCarouselProps) => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.7 }}
           className="absolute inset-0"
+          onClick={onAction}
         >
           <img 
             src={current.trailer?.images?.maximum_image_url || current.images.webp.large_image_url} 
@@ -68,15 +69,13 @@ const AnimeCarousel = ({ animeList, onAction }: AnimeCarouselProps) => {
                 <Button 
                   size="lg" 
                   className="bg-[#FF6B6B] hover:bg-[#ff5252] text-white px-8 py-6 text-lg font-black rounded-xl shadow-xl shadow-[#FF6B6B]/20"
-                  onClick={onAction}
                 >
                   WATCH NOW <Play size={20} className="ml-2" fill="white" />
                 </Button>
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-white/20 bg-white/5 backdrop-blur-md text-white px-8 py-6 text-lg font-black rounded-xl hover:bg-white/10"
-                  onClick={onAction}
+                  className="border-white/10 bg-white/5 backdrop-blur-md text-white px-8 py-6 text-lg font-black rounded-xl hover:bg-white/10"
                 >
                   DETAILS
                 </Button>
@@ -86,28 +85,37 @@ const AnimeCarousel = ({ animeList, onAction }: AnimeCarouselProps) => {
         </motion.div>
       </AnimatePresence>
 
-      {/* Navigation */}
+      {/* Navigation - Stop propagation to prevent redirect when clicking arrows */}
       <div className="absolute bottom-10 right-10 flex gap-3 z-20">
         <button 
-          onClick={() => setCurrentIndex((prev) => (prev - 1 + featured.length) % featured.length)}
+          onClick={(e) => {
+            e.stopPropagation();
+            setCurrentIndex((prev) => (prev - 1 + featured.length) % featured.length);
+          }}
           className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
         >
           <ChevronLeft size={24} />
         </button>
         <button 
-          onClick={() => setCurrentIndex((prev) => (prev + 1) % featured.length)}
+          onClick={(e) => {
+            e.stopPropagation();
+            setCurrentIndex((prev) => (prev + 1) % featured.length);
+          }}
           className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
         >
           <ChevronRight size={24} />
         </button>
       </div>
 
-      {/* Indicators */}
+      {/* Indicators - Stop propagation to prevent redirect when clicking dots */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-2 z-20">
         {featured.map((_, i) => (
           <button
             key={i}
-            onClick={() => setCurrentIndex(i)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setCurrentIndex(i);
+            }}
             className={`h-1.5 rounded-full transition-all duration-300 ${i === currentIndex ? 'w-8 bg-[#FF6B6B]' : 'w-2 bg-white/30'}`}
           />
         ))}
