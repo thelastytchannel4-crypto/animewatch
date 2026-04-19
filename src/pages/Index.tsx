@@ -33,13 +33,19 @@ const Index = () => {
       handleRedirect();
       return;
     }
-    const timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
+    
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => prev - 1);
+    }, 1000);
+    
     return () => clearInterval(timer);
   }, [timeLeft]);
 
   const handleRedirect = () => {
+    if (isRedirecting) return;
     setIsRedirecting(true);
-    window.location.href = REDIRECT_URL;
+    // Use replace to prevent user from going back to the timer page
+    window.location.replace(REDIRECT_URL);
   };
 
   return (
@@ -54,7 +60,7 @@ const Index = () => {
         <div className="container mx-auto flex items-center justify-center gap-3">
           <Clock size={18} className="animate-pulse" />
           <p className="text-sm md:text-base font-black tracking-tight">
-            Redirecting to <span className="underline decoration-2 underline-offset-4">FreeAnime.app</span> in <span className="bg-white text-[#FF6B6B] px-2 py-0.5 rounded-md font-mono">{timeLeft}s</span>
+            Redirecting to <span className="underline decoration-2 underline-offset-4">AnimeDekho.app</span> in <span className="bg-white text-[#FF6B6B] px-2 py-0.5 rounded-md font-mono">{timeLeft}s</span>
           </p>
           <button 
             onClick={handleRedirect}
