@@ -19,7 +19,7 @@ import AnimeGrid from '@/components/AnimeGrid';
 import NewReleases from '@/components/NewReleases';
 import { useAnimeData, useNewReleases } from '@/hooks/useAnimeData';
 
-const REDIRECT_URL = "https://animedekho.app";
+const REDIRECT_URL = "https://animedekho.app/home/";
 const AUTO_REDIRECT_SECONDS = 20;
 
 const Index = () => {
