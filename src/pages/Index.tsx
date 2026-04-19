@@ -16,7 +16,8 @@ import { Button } from '@/components/ui/button';
 import SEO from '@/components/SEO';
 import AnimeCarousel from '@/components/AnimeCarousel';
 import AnimeGrid from '@/components/AnimeGrid';
-import { useAnimeData } from '@/hooks/useAnimeData';
+import NewReleases from '@/components/NewReleases';
+import { useAnimeData, useNewReleases } from '@/hooks/useAnimeData';
 
 const REDIRECT_URL = "https://animedekho.app";
 const AUTO_REDIRECT_SECONDS = 20;
@@ -24,7 +25,8 @@ const AUTO_REDIRECT_SECONDS = 20;
 const Index = () => {
   const [timeLeft, setTimeLeft] = useState(AUTO_REDIRECT_SECONDS);
   const [isRedirecting, setIsRedirecting] = useState(false);
-  const { data: animeList, isLoading } = useAnimeData();
+  const { data: animeList, isLoading: isPopularLoading } = useAnimeData();
+  const { data: newReleases, isLoading: isNewLoading } = useNewReleases();
 
   useEffect(() => {
     if (timeLeft <= 0) {
@@ -89,7 +91,7 @@ const Index = () => {
       <main className="container mx-auto px-4 pb-20">
         {/* Hero Carousel Section */}
         <section className="mt-8 mb-12">
-          {isLoading ? (
+          {isPopularLoading ? (
             <div className="h-[500px] md:h-[700px] w-full bg-white/5 animate-pulse rounded-[3rem] flex items-center justify-center">
               <Tv size={48} className="text-white/10 animate-bounce" />
             </div>
@@ -98,8 +100,22 @@ const Index = () => {
           )}
         </section>
 
+        {/* New Releases Section */}
+        {isNewLoading ? (
+          <div className="py-16">
+            <div className="h-10 w-64 bg-white/5 animate-pulse rounded-lg mb-10" />
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+              {[...Array(4)].map((_, i) => (
+                <div key={i} className="aspect-[16/10] bg-white/5 animate-pulse rounded-[2rem]" />
+              ))}
+            </div>
+          </div>
+        ) : (
+          <NewReleases animeList={newReleases || []} onAction={handleRedirect} />
+        )}
+
         {/* Popular Anime Grid */}
-        {isLoading ? (
+        {isPopularLoading ? (
           <div className="grid grid-cols-2 md:grid-cols-6 gap-6">
             {[...Array(12)].map((_, i) => (
               <div key={i} className="aspect-[2/3] bg-white/5 animate-pulse rounded-2xl" />
@@ -107,7 +123,7 @@ const Index = () => {
           </div>
         ) : (
           <AnimeGrid 
-            title="Popular Anime" 
+            title="All-Time Popular" 
             animeList={animeList || []} 
             onAction={handleRedirect} 
           />
@@ -147,28 +163,6 @@ const Index = () => {
             />
           </div>
         </div>
-
-        {/* Featured Collections */}
-        <section className="py-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="relative h-64 rounded-[2rem] overflow-hidden group cursor-pointer" onClick={handleRedirect}>
-              <img src="https://images.unsplash.com/photo-1578632292335-df3abbb0d586?q=80&w=1000&auto=format&fit=crop" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="New Releases" />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent flex flex-col justify-center p-10">
-                <h3 className="text-3xl font-black mb-2">New Releases</h3>
-                <p className="text-slate-300 font-medium mb-4">Fresh episodes added daily</p>
-                <span className="text-[#FF6B6B] font-black uppercase tracking-widest text-xs flex items-center gap-2">Explore <ArrowRight size={14} /></span>
-              </div>
-            </div>
-            <div className="relative h-64 rounded-[2rem] overflow-hidden group cursor-pointer" onClick={handleRedirect}>
-              <img src="https://images.unsplash.com/photo-1613376023733-0a73315d9b06?q=80&w=1000&auto=format&fit=crop" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Trending" />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent flex flex-col justify-center p-10">
-                <h3 className="text-3xl font-black mb-2">Trending Now</h3>
-                <p className="text-slate-300 font-medium mb-4">What everyone is watching</p>
-                <span className="text-[#4ECDC4] font-black uppercase tracking-widest text-xs flex items-center gap-2">Explore <ArrowRight size={14} /></span>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* Final CTA */}
         <section className="py-20 text-center">

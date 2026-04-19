@@ -9,6 +9,9 @@ export interface Anime {
     webp: {
       large_image_url: string;
     };
+    jpg: {
+      large_image_url: string;
+    };
   };
   trailer: {
     images: {
@@ -20,6 +23,10 @@ export interface Anime {
   synopsis: string;
   episodes: number;
   status: string;
+  aired: {
+    from: string;
+    string: string;
+  };
 }
 
 const POPULAR_IDS = [16498, 38480, 40748, 1535, 21, 2001, 31964, 223, 9253, 1575, 813, 269];
@@ -35,13 +42,11 @@ export const useAnimeData = () => {
   return useQuery({
     queryKey: ["popular-anime"],
     queryFn: async () => {
-      // We fetch them sequentially or with a small delay to avoid rate limits from Jikan
       const results = [];
       for (const id of POPULAR_IDS) {
         try {
           const data = await fetchAnimeById(id);
           results.push(data);
-          // Small delay to respect Jikan's rate limit (3 requests per second)
           await new Promise(resolve => setTimeout(resolve, 400));
         } catch (e) {
           console.error(`Failed to fetch anime ${id}`, e);
@@ -49,6 +54,19 @@ export const useAnimeData = () => {
       }
       return results;
     },
-    staleTime: 1000 * 60 * 60, // 1 hour
+    staleTime: 1000 * 60 * 60,
+  });
+};
+
+export const useNewReleases = () => {
+  return useQuery({
+    queryKey: ["new-releases"],
+    queryFn: async () => {
+      const response = await fetch('https://api.jikan.moe/v4/seasons/now?limit=12');
+      if (!response.ok) throw new Error("Failed to fetch new releases");
+      const json = await response.json();
+      return json.data as Anime[];
+    },
+    staleTime: 1000 * 60 * 60 * 24, // 24 hours
   });
 };
