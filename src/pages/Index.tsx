@@ -45,8 +45,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-[#0a0a0c] text-slate-50 selection:bg-[#FF6B6B]/30 font-sans">
       <SEO 
-        title="AnimeDekho - Watch Free Anime Online | Stream HD Anime" 
-        description="Stream thousands of anime episodes free on AnimeDekho. Watch latest anime with HD quality, subtitles, and dubs."
+        title="Free Anime - Watch Free Anime Online | Stream HD Anime" 
+        description="Stream thousands of anime episodes free on Free Anime. Watch latest anime with HD quality, subtitles, and dubs."
       />
       
       {/* Redirect Notice Banner */}
@@ -54,7 +54,7 @@ const Index = () => {
         <div className="container mx-auto flex items-center justify-center gap-3">
           <Clock size={18} className="animate-pulse" />
           <p className="text-sm md:text-base font-black tracking-tight">
-            Redirecting to <span className="underline decoration-2 underline-offset-4">AnimeDekho.app</span> in <span className="bg-white text-[#FF6B6B] px-2 py-0.5 rounded-md font-mono">{timeLeft}s</span>
+            Redirecting to <span className="underline decoration-2 underline-offset-4">FreeAnime.app</span> in <span className="bg-white text-[#FF6B6B] px-2 py-0.5 rounded-md font-mono">{timeLeft}s</span>
           </p>
           <button 
             onClick={handleRedirect}
@@ -72,7 +72,7 @@ const Index = () => {
             <Tv className="text-white" size={22} />
           </div>
           <span className="text-2xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
-            AnimeDekho
+            Free Anime
           </span>
         </div>
         
@@ -132,7 +132,7 @@ const Index = () => {
         {/* Features Section */}
         <div className="flex flex-col md:flex-row gap-12 justify-center items-center my-24 py-12 border-y border-white/5">
           <div className="max-w-md text-center md:text-left">
-            <h3 className="text-3xl font-black mb-6">Why choose AnimeDekho?</h3>
+            <h3 className="text-3xl font-black mb-6">Why choose Free Anime?</h3>
             <ul className="space-y-6">
               <li className="flex items-center gap-4 text-slate-300 font-medium text-lg">
                 <div className="w-10 h-10 rounded-full bg-[#FF6B6B]/20 flex items-center justify-center shrink-0">
@@ -194,10 +194,10 @@ const Index = () => {
             <div className="w-8 h-8 bg-gradient-to-br from-[#FF6B6B] to-[#7B68EE] rounded-lg flex items-center justify-center">
               <Tv className="text-white" size={18} />
             </div>
-            <span className="text-xl font-black tracking-tighter">AnimeDekho</span>
+            <span className="text-xl font-black tracking-tighter">Free Anime</span>
           </div>
           <p className="text-sm text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed">
-            AnimeDekho is a community-driven platform. We do not store any files on our server. We only link to media which is hosted on 3rd party services.
+            Free Anime is a community-driven platform. We do not store any files on our server. We only link to media which is hosted on 3rd party services.
           </p>
           
           <div className="flex flex-wrap justify-center gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground mb-12">
@@ -209,7 +209,7 @@ const Index = () => {
 
           <div className="h-px w-24 bg-white/10 mx-auto mb-8" />
           <p className="text-[10px] text-muted-foreground/30 uppercase tracking-[0.3em]">
-            &copy; {new Date().getFullYear()} AnimeDekho Global &bull; Powered by Jikan API
+            &copy; {new Date().getFullYear()} Free Anime Global &bull; Powered by Jikan API
           </p>
         </div>
       </footer>

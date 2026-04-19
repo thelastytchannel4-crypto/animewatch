@@ -104,7 +104,7 @@ const TrendingAnime = ({ onAction }: { onAction: () => void }) => {
                 <div className="w-10 h-10 rounded-full bg-[#FF6B6B] flex items-center justify-center shadow-lg shadow-[#FF6B6B]/40">
                   <Play size={18} fill="white" className="ml-0.5" />
                 </div>
-                <span className="text-xs font-black uppercase tracking-widest text-white/80">Watch Now on AnimeDekho</span>
+                <span className="text-xs font-black uppercase tracking-widest text-white/80">Watch Now on Free Anime</span>
               </div>
             </div>
           </motion.div>
